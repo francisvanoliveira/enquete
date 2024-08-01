@@ -1,0 +1,173 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #0f0c25;
+    color: #fff;
+}
+
+a {
+    text-decoration: none;
+    color: #ffffff;
+}
+
+#login {
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+}
+
+.cpf input {
+    padding: 13px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 16px;
+    text-align: center; /* Centraliza o texto do input */
+}
+
+.entrar input {
+    padding: 13px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    width: 100%;
+    background-color: #38b000;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s;
+}
+
+.relatorio input {
+    padding: 13px;
+    border-radius: 10px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    width: 100%;
+    background-color: #38b000;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s;
+}
+
+.sair input {
+    padding: 13px;
+    border-radius: 10px;
+    margin-top: 20px;
+    width: 100%;
+    background-color: #b21613;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s;
+}
+
+.entrar input:hover{
+    background-color: #2a7a00;
+}
+
+.sair input:hover{
+    background-color: #861c10;
+}
+
+input::placeholder {
+    color: #b6b6b6;
+}
+
+h1 {
+    color: #FAFAFA;
+}
+
+p {
+    color: #FAFAFA;
+    font-size: 25px;
+    
+}
+
+.caixa {
+    margin-top: 100px;
+    margin-bottom: 20px;
+}
+
+.caixa img {
+    width: 100px;
+}
+
+footer {
+    padding-top: 200px;
+    text-align: center;
+}
+
+input[type="radio"] {
+    display: none;
+}
+
+label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    color: #fff;
+    border: 2px solid #fff;
+    padding: 15px;
+    border-radius: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    cursor: pointer;
+    font-size: 16px;
+    margin-bottom: 10px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+input[type="radio"]:checked + label {
+    background-color: #38b000;
+    color: white;
+}
+
+
+
+input[type="submit"]:hover {
+    background-color: #2a7a00;
+}
+
+/*apuracao*/
+.container {
+    width: 100%;
+    max-width: 600px;
+    margin: 20px 0;
+    text-align: center;
+}
+
+.results-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 20px;
+}
+
+.results-table th, .results-table td {
+    padding: 15px;
+    text-align: center;
+    border-bottom: 1px solid #0d3b66;
+}
+
+.results-table th {
+    background-color: #1f3b5b;
+    color: #fff;
+}
+
+.results-table td {
+    background-color: #1a2c4b;
+    color: #fff;
+}
+
+.results-table tr:first-child td {
+    background-color: #38b000;
+    color: #fff;
+}

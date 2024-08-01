@@ -3,30 +3,56 @@ session_start();
 ?>
 
 <!DOCTYPE html>
-<html>
+
+<html lang="pt-br">
+
 <head>
-    <title>Sistema de Enquete DaVinci Hotel</title>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+    <link rel="stylesheet" href="css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>Sistema de Pesquisa</title>
+ 
 </head>
-<body>
-    <div class="header">
-        <p>DaVinci Hotel</p>
+
+<body id="principal">
+
+    <div id="login">
+
+        <div class="caixa">
+            
+            <img src="img/logo.jpg" alt="">
+            <h1>PESQUISA</h1>
+            <p>DaVinci Hotel</p>
+
+            <form @submit.prevent="verificarCPF">
+                <div class="cpf">
+                    <input type="text" v-model="cpf" placeholder="Digite seu CPF" required>
+                </div>
+    
+                <div class="entrar">
+                    <input type="submit" value="Acessar">
+                </div>
+            </form>
+            <div v-if="mensagem" class="alert">{{ mensagem }}</div>
+            
+
+        </div>       
+
     </div>
-    <div id="app">
-        <form @submit.prevent="verificarCPF">
-            <input type="text" v-model="cpf" placeholder="Digite seu CPF" required>
-            <input type="submit" value="Verificar">
-        </form>
-        <div v-if="mensagem" class="alert">{{ mensagem }}</div>
-    </div>
+
     <footer>
-        Desenvolvido por GR7Sites
+        Desenvolvido por GR7 Tecnologia
     </footer>
 
     <script>
         new Vue({
-            el: '#app',
+            el: '.caixa',
             data: {
                 cpf: '',
                 mensagem: ''
@@ -54,5 +80,7 @@ session_start();
             }
         });
     </script>
+    
 </body>
+
 </html>
