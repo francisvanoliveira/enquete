@@ -11,6 +11,9 @@ require('fpdf/fpdf.php');
 // Definir fuso horário para Manaus/AM
 date_default_timezone_set('America/Manaus');
 
+// Gerar código de autenticação único
+$auth_code = bin2hex(random_bytes(8));
+
 // Obter resultados da votação
 $sql = "SELECT voto, COUNT(*) as count FROM votos GROUP BY voto ORDER BY count DESC";
 $result = $conn->query($sql);
@@ -37,7 +40,12 @@ while ($row = $result->fetch_assoc()) {
 }
 
 // Obter data e hora atuais
-$dataHora = date('d/m/Y H:i:s');
+$dataHora = date('Y-m-d H:i:s');
+
+// Armazenar o código de autenticação e a data/hora no banco de dados
+$stmt = $conn->prepare("INSERT INTO relatorios (auth_code, created_at) VALUES (?, ?)");
+$stmt->bind_param("ss", $auth_code, $dataHora);
+$stmt->execute();
 
 // Criar o PDF
 $pdf = new FPDF();
@@ -53,6 +61,9 @@ $pdf->Cell(0, 10, utf8_decode('ESCOLHA DE BENEFÍCIO'), 0, 1, 'C');
 $pdf->SetFont('Arial', '', 10);
 $pdf->Cell(0, 10, utf8_decode('Gerado em: ') . $dataHora, 0, 1, 'C');
 
+// Código de Autenticação
+$pdf->Cell(0, 10, utf8_decode('Código de Autenticação: ') . $auth_code, 0, 1, 'C');
+
 // Espaço
 $pdf->Ln(10);
 
@@ -62,18 +73,18 @@ $pdf->Cell(0, 10, 'Total de votos: ' . $total_votos, 0, 1, 'C');
 $pdf->Ln(5);
 
 // Centralizar a tabela de votos
-$tableWidth = 110; // 80 (opção) + 30 (votos)
+$tableWidth = 130; // 80 (opção) + 50 (votos)
 $centerX = ($pdf->GetPageWidth() - $tableWidth) / 2;
 
 $pdf->SetX($centerX);
 $pdf->Cell(80, 10, utf8_decode('Opção'), 1, 0, 'C');
-$pdf->Cell(30, 10, 'Votos', 1, 1, 'C');
+$pdf->Cell(50, 10, 'Votos', 1, 1, 'C');
 
 $pdf->SetFont('Arial', '', 12);
 foreach ($votos as $opcao => $contagem) {
     $pdf->SetX($centerX);
     $pdf->Cell(80, 10, utf8_decode($opcao), 1, 0, 'C');
-    $pdf->Cell(30, 10, $contagem, 1, 1, 'C');
+    $pdf->Cell(50, 10, $contagem, 1, 1, 'C');
 }
 
 // Espaço
@@ -83,13 +94,13 @@ $pdf->Ln(10);
 $pdf->SetFont('Arial', 'B', 12);
 $pdf->SetX($centerX);
 $pdf->Cell(80, 10, utf8_decode('Opção'), 1, 0, 'C');
-$pdf->Cell(30, 10, '%', 1, 1, 'C');
+$pdf->Cell(50, 10, 'Porcentagem', 1, 1, 'C');
 
 $pdf->SetFont('Arial', '', 12);
 foreach ($porcentagens as $opcao => $porcentagem) {
     $pdf->SetX($centerX);
     $pdf->Cell(80, 10, utf8_decode($opcao), 1, 0, 'C');
-    $pdf->Cell(30, 10, number_format($porcentagem, 2) . '%', 1, 1, 'C');
+    $pdf->Cell(50, 10, number_format($porcentagem, 2) . '%', 1, 1, 'C');
 }
 
 // Espaço
@@ -111,7 +122,7 @@ $pdf->Cell(0, 6, utf8_decode('EAH-Empresa Amazonense de Hotelaria Ltda'), 0, 1, 
 $pdf->Ln(10);
 
 $pdf->SetFont('Arial', '', 12);
-$pdf->Cell(0, 10, utf8_decode('Francisvan Oliveira Pessoa'), 0, 1, 'C');
+$pdf->Cell(0, 10, utf8_decode('Francisvan Oliveira'), 0, 1, 'C');
 $pdf->Cell(0, 5, utf8_decode('Desenvolvedor'), 0, 1, 'C');
 $pdf->Cell(0, 6, utf8_decode('GR7 Tecnologia'), 0, 1, 'C');
 

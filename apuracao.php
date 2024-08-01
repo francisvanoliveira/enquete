@@ -61,7 +61,7 @@ $total_votos = $total_row['total'];
                         ?>
                     </tbody>
                 </table>
-
+                
                 <form action="relatorio.php" method="post" target="_blank">
                     <div class="relatorio">
                         <input type="submit" value="Relatório">
